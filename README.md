@@ -1,6 +1,6 @@
 # Documentação reddit-app
 
-Utilizei o PHP/MySQL como linguagem para o desenvolvimento pois é a linguagem em que tenho maior fluidez atualmente. Normalmente usaria o framework Laravel (framework que mais utilizei no meu último emprego) para fazer um projeto, mas optando pela construção mais simples possível, não utilizei nenhum framework específico. Apesar da maior rapidez de desenvolvimento, senti falta de algumas features que o framework me ofereceria mais facilmente como o módulo de tarefas agendadas (cron), trabalhar com rotas e obviamente uma estruturação mais clara dos arquivos e código.
+Utilizei o PHP/MySQL como linguagem para o desenvolvimento pois é a linguagem em que tenho maior fluidez atualmente. Normalmente usaria o framework Laravel (framework que mais utilizei no meu último emprego) para fazer um projeto, mas optando pela construção mais simples possível, não utilizei nenhum framework específico. Apesar da maior rapidez de desenvolvimento, senti falta de algumas features que o framework me ofereceria mais facilmente como o módulo de tarefas agendadas (cron), trabalhar com rotas e uma estruturação mais clara dos arquivos e código.
 
 Para testar a aplicação localmente recorri ao uso do XAMPP como suporte pra emular o servidor PHP.
 O XAMPP oferece um console phpMyAdmin pra configurar o banco de dados MySQL. 
