@@ -19,7 +19,7 @@ Criei a tabela <b>reddit.post</b>. Segue o comando MySQL correspondente:
 ) ENGINE=INNODB;
 </pre>
 
-Populei o banco de dados usando o método <b>curl</b> do PHP.
+Para popular o banco com os posts basta fazer a chamada http://localhost/reddit-app/populate.php
 
 Para criar o REST defini dois endpoints segundo as especificações.
 
