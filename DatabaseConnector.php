@@ -12,7 +12,7 @@ class DatabaseConnector {
         $host = 'localhost';
         $port = 3306;
         $db   = 'reddit';
-        $user = '';
+        $user = 'root';
         $pass = '';
 
         try {

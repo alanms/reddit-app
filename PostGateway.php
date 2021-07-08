@@ -13,7 +13,7 @@ class PostGateway {
     {
         $statement = "
             SELECT 
-                id, title, author_fullname, ups, num_comments, created_utc
+                id, title, author_fullname, ups, num_comments, created
             FROM
                 post;
         ";
@@ -31,7 +31,7 @@ class PostGateway {
     {
         $statement = "
             SELECT 
-                id, title, author_fullname, ups, num_comments, created_utc
+                id, title, author_fullname, ups, num_comments, created
             FROM
                 post
             WHERE id = ?;
@@ -50,10 +50,10 @@ class PostGateway {
     public function insert(Array $input)
     {
         $statement = "
-            INSERT INTO person 
-                (title, author_fullname, ups, num_comments, created_utc)
+            INSERT INTO post 
+                (title, author_fullname, ups, num_comments, created)
             VALUES
-                (:title, :author_fullname, :ups, :num_comments, :created_utc);
+                (:title, :author_fullname, :ups, :num_comments, :created);
         ";
 
         try {
@@ -63,7 +63,7 @@ class PostGateway {
                 'author_fullname'  => $input['author_fullname'],
                 'ups' => $input['ups'],
                 'num_comments' => $input['num_comments'],
-                'created_utc' => $input['created_utc']
+                'created' => $input['created']
             ));
             return $statement->rowCount();
         } catch (\PDOException $e) {
