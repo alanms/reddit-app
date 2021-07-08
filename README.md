@@ -15,7 +15,7 @@ Criei a tabela <b>reddit.post</b>. Segue o comando MySQL correspondente:
     author_fullname VARCHAR(100) NOT NULL,
     ups INT NOT NULL,
     num_comments INT NOT NULL,
-    created_utc INT NOT NULL
+    created INT NOT NULL
 ) ENGINE=INNODB;
 </b></pre>
 
