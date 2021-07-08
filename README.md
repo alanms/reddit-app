@@ -1,6 +1,6 @@
 # Documentação reddit-app
 
-Utilizei o PHP como linguagem para o desenvolvimento pois é a linguagem em que tenho maior fluidez atualmente e considerei que executaria a tarefa mais rapidamente por causa disso. Não utilizei nenhum framework específico pois optei pela construção mais simples possível do projeto.
+Utilizei o PHP/MySQL como linguagem para o desenvolvimento pois é a linguagem em que tenho maior fluidez atualmente e considerei que executaria a tarefa mais rapidamente por causa disso. Não utilizei nenhum framework específico pois optei pela construção mais simples possível do projeto.
 
 Para testar a aplicação localmente recorri ao uso do XAMPP como suporte pra emular o servidor PHP.
 O XAMPP oferece um console phpMyAdmin pra configurar o banco de dados MySQL. 
@@ -15,7 +15,7 @@ Criei a tabela <b>reddit.post</b>. Segue o comando MySQL correspondente:
     author_fullname VARCHAR(100) NOT NULL,
     ups INT NOT NULL,
     num_comments INT NOT NULL,
-    created_utc INT NOT NULL
+    created INT NOT NULL
 ) ENGINE=INNODB;
 </b></pre>
 
