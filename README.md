@@ -1,6 +1,6 @@
 # Documentação reddit-app
 
-Utilizei o PHP/MySQL como linguagem para o desenvolvimento pois é a linguagem em que tenho maior fluidez atualmente. Normalmente usaria o framework Laravel (framework que mais utilizei no meu último emprego) para fazer um projeto, mas optando pela construção mais simples possível, não utilizei nenhum framework específico. Apesar da maior rapidez de desenvolvimento, senti falta de algumas features que o framework me ofereceria mais facilmente como o módulo de tarefas agendadas (cron), trabalhar com rotas e uma estruturação mais clara dos arquivos e código.
+Utilizei o PHP/MySQL como linguagem para o desenvolvimento pois é a linguagem em que tenho maior fluidez atualmente. Normalmente usaria o framework Laravel (framework que mais utilizei no meu último emprego) para fazer um projeto, mas optando pela construção mais simples possível, não utilizei nenhum específico. Apesar da maior rapidez de desenvolvimento, senti falta no final de algumas features que o framework me ofereceria mais facilmente como o módulo de tarefas agendadas (cron), trabalhar com rotas e uma estruturação mais clara dos arquivos e código.
 
 Para testar a aplicação localmente recorri ao uso do XAMPP como suporte pra emular o servidor PHP.
 O XAMPP oferece um console phpMyAdmin pra configurar o banco de dados MySQL. 
@@ -19,7 +19,7 @@ Criei a tabela <b>reddit.post</b>. Segue o comando MySQL correspondente:
 ) ENGINE=INNODB;
 </pre>
 
-Para popular o banco com os posts realizo a chamada http://localhost/reddit-app/populate.php
+Para popular o banco com os posts realizo manualmente a chamada http://localhost/reddit-app/populate.php
 
 Para criar o REST defini dois endpoints segundo as especificações.
 
@@ -79,4 +79,12 @@ http://localhost/reddit-app/author/num_comments
     },
     ...
 ]
+</pre>
+
+A única parte do projeto que não consegui desenvolver em tempo hábil foi o cron. Procurei por tutoriais que dão exemplos de como fazer tarefas agendadas utilizando daemons php ou linhas de código no shell script do linux (estou utilizando o windows), mas preferi não testar porque achei as alternativas não muito confiáveis. Se tivesse utilizado o framework Laravel, conseguiria programar o agendamento de forma mais automatizada. Seria algo como este código inserido no módulo de task scheduling do próprio Laravel:
+<pre>
+// Run once per day at 1 PM...
+$schedule->call(function () {
+    //populate table
+})->daily()->at('13:00');
 </pre>
