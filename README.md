@@ -79,5 +79,4 @@ http://localhost/reddit-app/author/num_comments
     },
     ...
   ]
-  </pre>
-
+</pre>
