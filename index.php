@@ -1,44 +1,73 @@
 <?php
 
 require 'DatabaseConnector.php';
-require 'PostGateway.php';
+require 'PostController.php';
 
-/*
- * consult and get data from reddit app
- */
+header("Access-Control-Allow-Origin: *");
+header("Content-Type: application/json; charset=UTF-8");
+header("Access-Control-Allow-Methods: GET");
+header("Access-Control-Max-Age: 3600");
+header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 
-$curl = curl_init();
+$uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+$uri = explode('/', $uri);
 
-curl_setopt_array($curl, [
-    CURLOPT_HTTPHEADER => array("Content-Type: application/json"),
-    CURLOPT_URL => "https://api.reddit.com/r/artificial/hot",
-    CURLOPT_USERAGENT => $_SERVER['HTTP_USER_AGENT'],
-    CURLOPT_RETURNTRANSFER => 1
-]);
-
-$response = curl_exec($curl);
-
-curl_close($curl);
-
-/*
- * generate an array from json
- */
-$response_decoded = json_decode($response, true);
-
-echo '<pre>';
-print_r($response_decoded['data']['children']);
-echo '</pre>';
+$request_type = $uri[2];
 
 $database_connector = new DatabaseConnector();
 $db_connection = $database_connector->getConnection();
-$post_gateway = new PostGateway($db_connection);
+$controller = new PostController($db_connection);
 
-/*
- * populate db
- * 
-foreach ($response_decoded['data']['children'] as $post_item) {
-    $post_gateway->insert($post_item['data']);
-}
+/* 
+ * all of our endpoints start with /post or /author
+ * and have a defined number of parameters,
+ * everything else results in a 404 Not Found
  */
+$param = null;
+switch ($request_type) {
 
-//echo var_dump($post_gateway->find(1));
+    case 'post': 
+        if (isset($uri[3])) {
+            $param['initial_date'] = (int) $uri[3];
+        } else {
+            header("HTTP/1.1 404 Not Found");
+            exit();
+        }
+
+        if (isset($uri[4])) {
+            $param['final_date'] = (int) $uri[4];
+        } else {
+            header("HTTP/1.1 404 Not Found");
+            exit();
+        }
+
+        // ups as default order
+        if (isset($uri[5])) {
+            $param['order'] = ($uri[5] == 'num_comments') ? 'num_comments' : 'ups';
+        } else {
+            header("HTTP/1.1 404 Not Found");
+            exit();
+        }
+        
+        $controller->processRequest('post', $param);
+        
+        break;
+
+    case 'author':
+        // ups as default order
+        if (isset($uri[3])) {
+            $param['order'] = ($uri[3] == 'num_comments') ? 'num_comments' : 'ups';
+        } else {
+            header("HTTP/1.1 404 Not Found");
+            exit();
+        }
+
+        $controller->processRequest('author', $param);
+
+        break;
+    
+    default:
+        header("HTTP/1.1 404 Not Found");
+        exit();
+        break;
+}

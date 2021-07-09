@@ -1,6 +1,6 @@
 <?php
 
-class PostGateway {
+class Post {
 
     private $db = null;
 
@@ -9,17 +9,23 @@ class PostGateway {
         $this->db = $db;
     }
 
-    public function findAll()
+    public function findPosts($param)
     {
         $statement = "
             SELECT 
                 id, title, author_fullname, ups, num_comments, created
             FROM
-                post;
+                post
+            WHERE
+                created BETWEEN :initial_date AND :final_date
+            ORDER BY " . $param['order'] . " DESC;
         ";
 
         try {
-            $statement = $this->db->query($statement);
+            $statement = $this->db->prepare($statement);
+            $statement->bindValue(':initial_date', $param['initial_date'], PDO::PARAM_INT);
+            $statement->bindValue(':final_date', $param['final_date'], PDO::PARAM_INT);
+            $statement->execute();
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
             return $result;
         } catch (\PDOException $e) {
@@ -27,24 +33,24 @@ class PostGateway {
         }
     }
 
-    public function find($id)
+    public function findAuthors($param)
     {
         $statement = "
-            SELECT 
-                id, title, author_fullname, ups, num_comments, created
+            SELECT
+                author_fullname, ups, num_comments
             FROM
                 post
-            WHERE id = ?;
+            ORDER BY " . $param['order'] . " DESC;
         ";
 
         try {
             $statement = $this->db->prepare($statement);
-            $statement->execute(array($id));
+            $statement->execute();
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
             return $result;
         } catch (\PDOException $e) {
             exit($e->getMessage());
-        }    
+        }
     }
 
     public function insert(Array $input)

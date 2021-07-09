@@ -7,7 +7,7 @@ class DatabaseConnector {
     public function __construct()
     {
         /*
-         * set constants, not the best way to do it, normally a .env file is created to handle it
+         * normally a .env file is created to handle it
          */
         $host = 'localhost';
         $port = 3306;
