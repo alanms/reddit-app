@@ -78,5 +78,5 @@ http://localhost/reddit-app/author/num_comments
         "num_comments": "2"
     },
     ...
-  ]
+]
 </pre>
